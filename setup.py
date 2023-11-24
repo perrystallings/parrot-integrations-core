@@ -44,10 +44,10 @@ setup(
     include_package_data=True,
     keywords='parrot_integrations_core',
     name='parrot-integrations-core',
-    packages=['parrot_integrations.bigquery'],
+    packages=['parrot_integrations.bigquery', 'parrot_integrations.core'],
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/perrystallings/parrot_integrations_core',
-    version='0.0.1',
+    version='0.0.3',
     zip_safe=False
 )
