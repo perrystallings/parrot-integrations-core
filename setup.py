@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 """The setup script."""
+import os
 
 from setuptools import setup
 
@@ -11,22 +12,19 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'google-cloud-bigquery',
     'requests',
-    'openai',
     'jsonpath-ng',
 ]
 
 test_requirements = [
     'pytest>=3',
     'responses'
-
 ]
 
 setup(
     author="Perry Stallings",
     author_email='astal01@gmail.com',
-    python_requires='>=3.8',
+    python_requires='>=3.6',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
@@ -42,12 +40,12 @@ setup(
     license="MIT license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
-    keywords='parrot_integrations_core',
+    keywords='parrot_integrations',
     name='parrot-integrations-core',
-    packages=['parrot_integrations.bigquery', 'parrot_integrations.core'],
+    packages=[f'parrot_integrations.{i}' for i in os.listdir('./parrot_integrations') if os.path.isdir(os.path.join('./parrot_integrations', i))],
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/perrystallings/parrot_integrations_core',
-    version='0.0.3',
+    version='0.0.8',
     zip_safe=False
 )
