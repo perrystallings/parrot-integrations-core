@@ -147,10 +147,10 @@ def process(inputs,
         url=inputs['url'],
         params=dict(
             (param['key'], param['value']) for param in inputs['url_params']
-        ),
+        ) if inputs.get('url_params') else None,
         json=dict(
             (param['key'], param['value']) for param in inputs['json_payload']
-        )
+        ) if inputs.get('json_payload') else None
     )
     response = dict(
         status_code=resp.status_code,
