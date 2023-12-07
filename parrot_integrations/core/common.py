@@ -16,7 +16,6 @@ def load_operation(integration_key, operation_key):
 
 
 def format_data(record, schema):
-    from jsonpath_ng.ext.parser import parse as ng_parse
     data = dict()
     for k, v in schema.items():
         val = None
@@ -39,3 +38,7 @@ def format_data(record, schema):
                 val = v
         data[k] = val
     return data
+
+
+def evaluate_filter(edge, record):
+    return True
