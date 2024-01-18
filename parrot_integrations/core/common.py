@@ -42,7 +42,6 @@ def format_data(record, schema):
 
 
 def evaluate_filter(edge, record):
-    edge['data']['filter']
     return True
 
 
