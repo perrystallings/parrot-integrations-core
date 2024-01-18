@@ -1,3 +1,7 @@
+from .integration_types import *
+from .integrations import *
+
+
 def get_schema():
     return dict(
         type='object',

@@ -42,6 +42,7 @@ def format_data(record, schema):
 
 
 def evaluate_filter(edge, record):
+    edge['data']['filter']
     return True
 
 
@@ -51,3 +52,4 @@ def validate_edge_filter(edge_filter):
 
 def validate_workflow_graph(nodes, edges):
     return True
+

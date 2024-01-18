@@ -1,3 +1,7 @@
+from .account_types import *
+from .accounts import *
+
+
 def get_schema():
     return dict(
         type='object',
