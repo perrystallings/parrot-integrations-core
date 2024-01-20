@@ -138,8 +138,7 @@ def get_details():
     )
 
 
-def process(inputs,
-            **kwargs):
+def process(inputs, **kwargs):
     import requests
 
     resp = requests.request(

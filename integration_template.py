@@ -2,7 +2,7 @@ def get_schema():
     return dict(
         type='object',
         additionalProperties=False,
-        description='Workflow Service',
+        description='',
         required=['extra_attributes', 'credentials'],
         properties=dict(
             extra_attributes=dict(

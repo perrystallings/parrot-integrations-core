@@ -1,151 +1,26 @@
 def get_details():
     return dict(
-        name='Create Account',
-        description='Create account based on provided data',
-        is_expandable=False,
+        name='',
+        description='',
+        is_trigger=False,
         schema=dict(
             type='object',
             additionalProperties=False,
-            description='Insert Row into BigQuery Table',
+            description='',
             required=['inputs', 'outputs'],
             properties=dict(
-                expand_results=dict(
-                    type='boolean',
-                    default=False,
-                    enum=[False]
-                ),
                 inputs=dict(
                     type='object',
                     additionalProperties=False,
-                    required=['project_id', 'dataset_id', 'table_id', 'columns'],
+                    required=[],
                     properties=dict(
-                        parent_uuids=dict(
-                            type='object',
-                            additionalProperties=False,
-                            properties=dict(
-                                oneOf=[
-                                    dict(
-                                        path=dict(
-                                            type='string',
-                                            minLength=1,
-                                        ),
-                                        default=dict(
-                                            type='array',
-                                            items=dict(
-                                                type='string',
-                                                format='uuid'
-                                            )
-                                        )
-                                    ),
-                                    dict(
-                                        value=dict(
-                                            type='array',
-                                            items=dict(
-                                                type='string',
-                                                format='uuid'
-                                            )
-                                        )
-                                    )
-                                ]
-                            ),
-                        ),
-                        name=dict(
-                            type='object',
-                            additionalProperties=False,
-                            properties=dict(
-                                oneOf=[
-                                    dict(
-                                        path=dict(
-                                            type='string',
-                                            minLength=1,
-                                        ),
-                                        default=dict(
-                                            type='string',
-                                        )
-                                    ),
-                                    dict(
-                                        value=dict(
-                                            type='string',
-                                        )
-                                    )
-                                ]
-                            ),
-                        ),
-                        account_type_uuid=dict(
-                            type='object',
-                            additionalProperties=False,
-                            properties=dict(
-                                oneOf=[
-                                    dict(
-                                        path=dict(
-                                            type='string',
-                                            minLength=1,
-                                        ),
-                                        default=dict(
-                                            type='string',
-                                            format='uuid'
-                                        )
-                                    ),
-                                    dict(
-                                        value=dict(
-                                            type="string",
-                                            format='uuid'
-                                        ),
-
-                                    )
-                                ]
-                            ),
-                        ),
-                        extra_attributes=dict(
-                            type='object',
-                            additionalProperties=False,
-                            properties=dict(
-                                oneOf=[
-                                    dict(
-                                        path=dict(
-                                            type='string',
-                                            minLength=1,
-                                        ),
-                                        default=dict(
-                                            type='object',
-                                        )
-                                    ),
-                                    dict(
-                                        value=dict(
-                                            type='object',
-                                        )
-                                    )
-                                ]
-                            )
-                        ),
                     )
                 ),
                 outputs=dict(
                     type='object',
-                    required=[
-                        'account_uuid'
-                        'parent_uuids',
-                        'name',
-                        'created_ts'
-                    ],
-                    properties=dict(
-                        account_uuid=dict(
-                            type='string',
-                        ),
-                        parent_uuids=dict(
-                            type='array',
-                            items=dict(
-                                type='string',
-                                format='uuid'
-                            )
-                        ),
-                        name=dict(
-                            type='string'
-                        ),
-                        created_ts=dict(
-                            type='integer',
-                        )
-                    )
+                    additionalProperties=True,
+                    required=[],
+                    properties=dict()
                 ),
             )
         )

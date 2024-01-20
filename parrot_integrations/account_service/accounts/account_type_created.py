@@ -1,55 +1,26 @@
 def get_details():
     return dict(
-        name='Account Type Created',
-        description='Account Type Created based on provided data',
-        is_expandable=False,
-        is_trigger=True,
+        name='',
+        description='',
+        is_trigger=False,
         schema=dict(
             type='object',
             additionalProperties=False,
-            description='Account Type Created',
+            description='',
             required=['inputs', 'outputs'],
             properties=dict(
-                expand_results=dict(
-                    type='boolean',
-                    default=False,
-                    enum=[False]
-                ),
                 inputs=dict(
                     type='object',
                     additionalProperties=False,
                     required=[],
-                    properties=dict()
+                    properties=dict(
+                    )
                 ),
                 outputs=dict(
                     type='object',
-                    required=[
-                        'account_type_uuid'
-                        'name',
-                        "description",
-                        'created_ts'
-                    ],
-                    properties=dict(
-                        account_uuid=dict(
-                            type='string',
-                        ),
-                        account_type_uuid=dict(
-                            type='string',
-                        ),
-                        parent_uuids=dict(
-                            type='array',
-                            items=dict(
-                                type='string',
-                                format='uuid'
-                            )
-                        ),
-                        name=dict(
-                            type='string'
-                        ),
-                        created_ts=dict(
-                            type='integer',
-                        )
-                    )
+                    additionalProperties=True,
+                    required=[],
+                    properties=dict()
                 ),
             )
         )

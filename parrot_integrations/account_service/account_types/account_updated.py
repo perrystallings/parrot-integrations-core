@@ -2,7 +2,6 @@ def get_details():
     return dict(
         name='Account Updated',
         description='Account Updated based on provided data',
-        is_expandable=False,
         is_trigger=True,
         schema=dict(
             type='object',
@@ -10,11 +9,6 @@ def get_details():
             description='Account updated',
             required=['inputs', 'outputs'],
             properties=dict(
-                expand_results=dict(
-                    type='boolean',
-                    default=False,
-                    enum=[False]
-                ),
                 inputs=dict(
                     type='object',
                     additionalProperties=False,
