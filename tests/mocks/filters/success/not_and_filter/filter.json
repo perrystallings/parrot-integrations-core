@@ -1,0 +1,28 @@
+{
+  "operator": "not",
+  "operations": [
+    {
+      "operator": "and",
+      "operations": [
+        {
+          "left": {
+            "path": "\"1\".boolean"
+          },
+          "operator": "==",
+          "right": {
+            "value": false
+          }
+        },
+        {
+          "left": {
+            "path": "\"1\".array"
+          },
+          "operator": "contains",
+          "right": {
+            "value": 1
+          }
+        }
+      ]
+    }
+  ]
+}

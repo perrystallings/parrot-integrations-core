@@ -1,5 +1,5 @@
 {
-  "operator": "and",
+  "operator": "or",
   "operations": [
     {
       "left": {
@@ -14,7 +14,7 @@
       "left": {
         "path": "\"1\".integer"
       },
-      "operator": ">",
+      "operator": ">=",
       "right": {
         "value": 8
       }

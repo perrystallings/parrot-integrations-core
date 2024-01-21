@@ -42,10 +42,10 @@ def evaluate_criteria(criteria, record):
         elif criteria['operator'] == '>':
             result = left > right
         elif criteria['operator'] == 'contains':
-            result = left in right
+            result = right in left
     except Exception:
-        return False
-    else:
+        pass
+    finally:
         return result
 
 

@@ -1,0 +1,19 @@
+{
+  "operator": "and",
+  "operations": [
+    {
+      "operator": "not",
+      "operations": [
+        {
+          "left": {
+            "path": "\"1\".boolean"
+          },
+          "operator": "==",
+          "right": {
+            "value": false
+          }
+        }
+      ]
+    }
+  ]
+}

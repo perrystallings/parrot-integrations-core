@@ -1,0 +1,10 @@
+{
+  "1": {
+    "string": "Test",
+    "integer": 10,
+    "array": [
+      1,2,3
+    ],
+    "boolean": true
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "operator": "and",
+  "operations": [
+    {
+      "left": {
+        "path": "\"1\".boolean"
+      },
+      "operator": "==",
+      "right": {
+        "value": true
+      }
+    },
+    {
+      "left": {
+        "path": "\"1\".integer"
+      },
+      "operator": ">",
+      "right": {
+        "value": 8
+      }
+    }
+  ]
+}

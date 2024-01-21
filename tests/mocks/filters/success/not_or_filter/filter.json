@@ -1,0 +1,28 @@
+{
+  "operator": "not",
+  "operations": [
+    {
+      "operator": "or",
+      "operations": [
+        {
+          "left": {
+            "path": "\"1\".boolean"
+          },
+          "operator": "==",
+          "right": {
+            "value": false
+          }
+        },
+        {
+          "left": {
+            "path": "\"1\".integer"
+          },
+          "operator": "<=",
+          "right": {
+            "value": 8
+          }
+        }
+      ]
+    }
+  ]
+}

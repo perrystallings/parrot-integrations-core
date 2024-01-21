@@ -1,6 +1,6 @@
 import pytest
-
-
+import os
+ROOT_DIRECTORY = os.path.abspath(__file__).replace('conftest.py', '')
 def traverse(folder, target_filename, other_filenames=tuple()):
     import os
     test_cases = []
@@ -13,7 +13,7 @@ def traverse(folder, target_filename, other_filenames=tuple()):
         if target_filename in i[2]:
             test_case = dict(
                 name=i[0].replace(folder, ''),
-                target=os.path.join(folder, target_filename),
+                target=os.path.join(i[0], target_filename),
                 **other_files
             )
             for other_filename in other_filenames:
@@ -26,5 +26,4 @@ def traverse(folder, target_filename, other_filenames=tuple()):
 @pytest.fixture()
 def root_directory():
     import os
-    return os.path.abspath(__file__).replace(
-        'conftest.py', '')
+    return ROOT_DIRECTORY
