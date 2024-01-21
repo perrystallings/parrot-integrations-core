@@ -19,3 +19,5 @@ def test_basic_data_formatter():
         value=True
     )
     assert formatted == expected
+
+

@@ -1,4 +1,4 @@
-def get_details():
+def get_schema():
     return dict(
         name='Account Updated',
         description='Account Updated based on provided data',
@@ -59,6 +59,5 @@ def get_details():
     )
 
 
-def process(workflow_uuid, account_uuid, node_uuid, trigger_uuid, ingested_ts, processed_ts, inputs, integration,
-            **kwargs):
+def process(workflow_uuid, node_uuid, processed_ts, inputs, integration, **kwargs):
     pass

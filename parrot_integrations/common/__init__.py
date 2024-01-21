@@ -1,12 +1,8 @@
-from .comments import *
-from .submission_types import *
-from .submission import *
-
 def get_schema():
     return dict(
         type='object',
         additionalProperties=False,
-        description='Approval Service',
+        description='',
         required=['extra_attributes', 'credentials'],
         properties=dict(
             extra_attributes=dict(

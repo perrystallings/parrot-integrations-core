@@ -34,13 +34,10 @@ def extract_value(field, record):
     value = None
     if 'path' in field.keys():
         result = ng_parse(path=field['path']).find(record)
-        if len(result) == 1:
-            value = result.value
+        if len(result) == 1 or (field.get('use_first_result', True) and len(result) > 1):
+            value = result[0].value
         elif len(result) > 1:
-            if not field.get('use_first_result', True):
-                value = [i.value for i in result]
-            else:
-                value = result[0].value
+            value = [i.value for i in result]
     elif 'value' in field.keys():
         value = field['value']
     else:
@@ -50,3 +47,19 @@ def extract_value(field, record):
     for transform in field.get('transforms', []):
         value = apply_transform(value=value, transform=transform)
     return value
+
+
+def list_integrations():
+    import pkgutil
+    import parrot_integrations
+    for loader, name, is_pkg in pkgutil.iter_modules(parrot_integrations.__path__):
+        if name not in ['core']:
+            yield name
+
+
+def list_operations(integration_key):
+    import pkgutil
+    integration_module = load_integration_module(integration_key=integration_key)
+    for loader, name, is_pkg in pkgutil.walk_packages(integration_module.__path__, integration_module.__name__ + "."):
+        if not is_pkg:
+            yield name.replace(integration_key + '.', '')

@@ -1,4 +1,4 @@
-def get_details():
+def get_schema():
     return dict(
         name='Http Request',
         description='Make an HTTP Request',
