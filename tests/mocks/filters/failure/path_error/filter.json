@@ -3,7 +3,7 @@
   "operations": [
     {
       "left": {
-        "path": "\"1\".fake",
+        "path": "`1`.fake",
         "default": true
       },
       "operator": "==",
