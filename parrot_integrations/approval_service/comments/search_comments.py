@@ -1,31 +1,48 @@
+from parrot_integrations.approval_service.comments import SCHEMA
+from parrot_integrations.core.integrations import search_objects, generate_search_schema
+
 def get_schema():
-    return dict(
-        name='',
-        description='',
-        is_trigger=False,
-        schema=dict(
-            type='object',
-            additionalProperties=False,
-            description='',
-            required=['inputs', 'outputs'],
-            properties=dict(
-                inputs=dict(
-                    type='object',
-                    additionalProperties=False,
-                    required=[],
-                    properties=dict(
-                    )
-                ),
-                outputs=dict(
-                    type='object',
-                    additionalProperties=True,
-                    required=[],
-                    properties=dict()
-                ),
+    search_schema=dict(
+        account_uuids=dict(
+            type='array',
+            items=dict(
+                type='string',
+                format='uuid',
+                description='The account UUIDs to search for'
             )
+        ),
+        submission_uuids=dict(
+            type='array',
+            items=dict(
+                type='string',
+                format='uuid',
+                description='The workflow UUIDs to search for'
+            )
+        ),
+        user_uuids=dict(
+            type='array',
+            items=dict(
+                type='string',
+                format='uuid',
+                description='The user uuid that created the comment'
+            )
+        ),
+        is_active=dict(
+            type=['null','boolean'],
+            default=True
+        ),
+        is_visible=dict(
+            type=['null','boolean'],
+            default=True
         )
     )
+    return generate_search_schema(plural_object_type='comments', object_schema=SCHEMA, search_schema=search_schema)
 
-
-def process(workflow_uuid, node_uuid, processed_ts, inputs, integration, **kwargs):
-    pass
+def process(inputs, integration, token, account_uuid, **kwargs):
+    return search_objects(
+        integration=integration,
+        plural_object_type='comments',
+        search_parameters=inputs,
+        token=token,
+        account_uuid=account_uuid
+    )

@@ -1,4 +1,4 @@
-from parrot_integrations.approval_service.submission_types import SCHEMA
+from parrot_integrations.approval_service.submissions import SCHEMA
 from parrot_integrations.core.integrations import search_objects, generate_search_schema
 
 def get_schema():
@@ -11,6 +11,14 @@ def get_schema():
                 description='The account UUIDs to search for'
             )
         ),
+        submission_uuids=dict(
+            type='array',
+            items=dict(
+                type='string',
+                format='uuid',
+                description='The workflow UUIDs to search for'
+            )
+        ),
         submission_type_uuids=dict(
             type='array',
             items=dict(
@@ -18,6 +26,10 @@ def get_schema():
                 format='uuid',
                 description='The submission type UUIDs to search for'
             )
+        ),
+        is_approved=dict(
+            type=['null','boolean'],
+            default=True
         ),
         is_active=dict(
             type=['null','boolean'],
@@ -28,12 +40,12 @@ def get_schema():
             default=True
         )
     )
-    return generate_search_schema(plural_object_type='submission_types', object_schema=SCHEMA, search_schema=search_schema)
+    return generate_search_schema(plural_object_type='submissions', object_schema=SCHEMA, search_schema=search_schema)
 
 def process(inputs, integration, token, account_uuid, **kwargs):
     return search_objects(
         integration=integration,
-        plural_object_type='submission_types',
+        plural_object_type='submissions',
         search_parameters=inputs,
         token=token,
         account_uuid=account_uuid

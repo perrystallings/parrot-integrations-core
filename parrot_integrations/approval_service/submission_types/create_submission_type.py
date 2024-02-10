@@ -1,31 +1,8 @@
+from parrot_integrations.approval_service.submission_types import SCHEMA
+from parrot_integrations.core.integrations import create_object, generate_create_schema
+
 def get_schema():
-    return dict(
-        name='',
-        description='',
-        is_trigger=False,
-        schema=dict(
-            type='object',
-            additionalProperties=False,
-            description='',
-            required=['inputs', 'outputs'],
-            properties=dict(
-                inputs=dict(
-                    type='object',
-                    additionalProperties=False,
-                    required=[],
-                    properties=dict(
-                    )
-                ),
-                outputs=dict(
-                    type='object',
-                    additionalProperties=True,
-                    required=[],
-                    properties=dict()
-                ),
-            )
-        )
-    )
+    return generate_create_schema(object_type='submission_type', object_schema=SCHEMA)
 
-
-def process(workflow_uuid, node_uuid, processed_ts, inputs, integration, **kwargs):
-    pass
+def process(inputs, integration, token, account_uuid, **kwargs):
+    return create_object(integration=integration, object_type='submission_type', data=inputs, token=token, account_uuid=account_uuid)
