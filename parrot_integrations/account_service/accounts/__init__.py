@@ -1,0 +1,27 @@
+SCHEMA=dict(
+    type='object',
+    additionalProperties=False,
+    properties=dict(
+        account_uuid=dict(
+            type='string',
+            format='uuid'
+        ),
+        account_type_uuid=dict(
+            type='string',
+            format='uuid'
+        ),
+        parent_account_uuids=dict(
+            type='array',
+            items=dict(
+                type='string',
+                format='uuid'
+            )
+        ),
+        name=dict(
+            type='string'
+        ),
+        created_ts=dict(
+            type='integer',
+        ),
+    )
+)

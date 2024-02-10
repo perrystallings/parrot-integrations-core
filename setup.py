@@ -12,8 +12,9 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'submission',
     'jsonpath-ng',
+    'croniter',
+    "jsonschema['format']"
 ]
 
 test_requirements = [
@@ -46,6 +47,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/perrystallings/parrot_integrations_core',
-    version='0.0.15',
+    version='0.0.17',
     zip_safe=False
 )

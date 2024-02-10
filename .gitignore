@@ -1,2 +1,7 @@
 venv/*
 .idea/*
+.DS_Store
+.coverage
+build/*
+dist/*
+parrot_integrations_core.egg-info/*

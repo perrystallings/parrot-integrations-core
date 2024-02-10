@@ -1,31 +1,8 @@
+from parrot_integrations.context_service.context_types import SCHEMA
+from parrot_integrations.core.integrations import get_object, generate_get_schema
+
 def get_schema():
-    return dict(
-        name='',
-        description='',
-        is_trigger=False,
-        schema=dict(
-            type='object',
-            additionalProperties=False,
-            description='',
-            required=['inputs', 'outputs'],
-            properties=dict(
-                inputs=dict(
-                    type='object',
-                    additionalProperties=False,
-                    required=[],
-                    properties=dict(
-                    )
-                ),
-                outputs=dict(
-                    type='object',
-                    additionalProperties=True,
-                    required=[],
-                    properties=dict()
-                ),
-            )
-        )
-    )
+    return generate_get_schema(object_type='context_type', object_schema=SCHEMA)
 
-
-def process(workflow_uuid, node_uuid, processed_ts, inputs, integration, **kwargs):
-    pass
+def process(inputs, integration, token, account_uuid, **kwargs):
+    return get_object(integration=integration, object_type='context_type', object_uuid=inputs['context_type_uuid'], token=token, account_uuid=account_uuid)

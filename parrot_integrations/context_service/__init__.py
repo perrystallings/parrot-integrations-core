@@ -5,13 +5,22 @@ def get_schema():
     return dict(
         type='object',
         additionalProperties=False,
-        description='Approval Service',
+        description='Context Service integration',
         required=['extra_attributes', 'credentials'],
         properties=dict(
             extra_attributes=dict(
                 type='object',
                 additionalProperties=False,
-                properties=dict()
+                required=[
+                    'base_url'
+                ],
+                properties=dict(
+                    base_url=dict(
+                        type='string',
+                        description='URL of the Context Service',
+                        default='https://api.example.com/context/v1/'
+                    )
+                )
             ),
             credentials=dict(
                 type='object',

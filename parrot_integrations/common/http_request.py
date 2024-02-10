@@ -17,7 +17,7 @@ def get_schema():
                 inputs=dict(
                     type='object',
                     additionalProperties=False,
-                    required=['project_id', 'dataset_id', 'table_id', 'columns'],
+                    required=['method', 'url'],
                     properties=dict(
                         method=dict(
                             type='string',
