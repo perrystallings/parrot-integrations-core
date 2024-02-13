@@ -1,7 +1,7 @@
 from .context import *
 from .context_types import *
 
-def get_schema():
+def get_integration_schema():
     return dict(
         type='object',
         additionalProperties=False,

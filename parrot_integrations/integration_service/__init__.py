@@ -2,7 +2,7 @@ from .integration_types import *
 from .integrations import *
 
 
-def get_schema():
+def get_integration_schema():
     return dict(
         type='object',
         additionalProperties=False,

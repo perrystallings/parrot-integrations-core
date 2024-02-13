@@ -1,5 +1,5 @@
-from parrot_integrations.approval_service.submission_types import SCHEMA
-from parrot_integrations.core.integrations import search_objects, generate_search_schema
+from parrot_integrations.approval_service.submission_types import OBJECT_SCHEMA
+from parrot_integrations.core import search_objects, generate_search_schema
 
 def get_schema():
     search_schema=dict(
@@ -28,7 +28,7 @@ def get_schema():
             default=True
         )
     )
-    return generate_search_schema(plural_object_type='submission_types', object_schema=SCHEMA, search_schema=search_schema)
+    return generate_search_schema(plural_object_type='submission_types', object_schema=OBJECT_SCHEMA, search_schema=search_schema)
 
 def process(inputs, integration, token, account_uuid, **kwargs):
     return search_objects(

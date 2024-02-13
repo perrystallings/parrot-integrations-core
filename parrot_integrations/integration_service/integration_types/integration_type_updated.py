@@ -1,31 +1,9 @@
+from parrot_integrations.integration_service.integration_types import OBJECT_SCHEMA
+from parrot_integrations.core import generate_trigger_schema, trigger_object
+
 def get_schema():
-    return dict(
-        name='',
-        description='',
-        is_trigger=True ,
-        schema=dict(
-            type='object',
-            additionalProperties=False,
-            description='',
-            required=['inputs', 'outputs'],
-            properties=dict(
-                inputs=dict(
-                    type='object',
-                    additionalProperties=False,
-                    required=[],
-                    properties=dict(
-                    )
-                ),
-                outputs=dict(
-                    type='object',
-                    additionalProperties=True,
-                    required=[],
-                    properties=dict()
-                ),
-            )
-        )
-    )
+    return generate_trigger_schema(object_type='integration_type', object_schema=OBJECT_SCHEMA, status='created')
 
 
-def process(workflow_uuid, node_uuid, processed_ts, inputs, integration, **kwargs):
-    pass
+def process(inputs, **kwargs):
+    return trigger_object(inputs=inputs)

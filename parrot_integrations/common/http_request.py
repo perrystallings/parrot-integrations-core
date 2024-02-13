@@ -23,97 +23,15 @@ def get_schema():
                             type='string',
                         ),
                         url=dict(
-                            type='object',
-                            additionalProperties=False,
-                            properties=dict(
-                                oneOf=[
-                                    dict(
-                                        path=dict(
-                                            type='string',
-                                            minLength=1,
-                                        ),
-                                        default=dict(
-                                            type='array',
-                                            items=dict(
-                                                type='string',
-                                            )
-                                        )
-                                    ),
-                                    dict(
-                                        value=dict(
-                                            type='string',
-                                            format='uri'
-                                        )
-                                    )
-                                ]
-                            ),
+                            type='string',
+                            format='uri'
                         ),
                         url_params=dict(
-                            type='array',
-                            items=dict(
-                                type='object',
-                                additionalProperties=False,
-                                properties=dict(
-                                    key=dict(
-                                        type='string',
-                                        minLength=1,
-                                    ),
-                                    value=dict(
-                                        type='string',
-                                    )
-                                )
-                            )
+                            type='object'
                         ),
                         json_payload=dict(
-                            type='array',
-                            items=dict(
-                                type='object',
-                                additionalProperties=False,
-                                properties=dict(
-                                    key=dict(
-                                        type='string',
-                                        minLength=1,
-                                    ),
-                                    value=dict(
-                                        oneOf=[
-                                            dict(
-                                                path=dict(
-                                                    type='string',
-                                                    minLength=1,
-                                                ),
-                                                default=dict(
-                                                    type='string',
-                                                )
-                                            ),
-                                            dict(
-                                                value=dict(
-                                                    oneOf=[
-                                                        dict(
-                                                            type='string',
-                                                        ),
-                                                        dict(
-                                                            type='number',
-                                                        ),
-                                                        dict(
-                                                            type='boolean',
-                                                        ),
-                                                        dict(
-                                                            type='array',
-                                                            items=dict(
-                                                                type='string',
-                                                            )
-                                                        ),
-                                                        dict(
-                                                            type='object',
-                                                        )
-                                                    ]
-                                                )
-                                            )
-                                        ]
-                                    )
-                                )
-                            )
-                        ),
+                            type='object',
+                        )
                     )
                 ),
                 outputs=dict(
@@ -132,7 +50,7 @@ def get_schema():
                             type='string',
                         ),
                     )
-                ),
+                )
             )
         )
     )

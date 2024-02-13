@@ -15,20 +15,15 @@ def get_schema():
                 inputs=dict(
                     type='object',
                     additionalProperties=False,
-                    required=['project_id', 'dataset_id', 'table_id', 'columns'],
                     properties=dict(
                         expression=dict(
-                            type="string"
-                        ),
-                        current_ts=dict(
                             type='string',
-                            default="$.publish_ts"
                         )
                     )
                 ),
                 outputs=dict(
                     type='object',
-                    required=[],
+                    required=['current_ts'],
                     properties=dict(
                         current_ts=dict(
                             type='number'

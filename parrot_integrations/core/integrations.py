@@ -1,132 +1,23 @@
 from urllib.parse import urljoin
 import requests
 
-def generate_get_schema(object_type, object_schema):
-    return dict(
-        name=f'Get {object_type}',
-        description=f'Get a single {object_type} by ID.',
-        is_trigger=False,
-        schema=dict(
-            type='object',
-            additionalProperties=False,
-            required=['inputs'],
-            properties=dict(
-                inputs=dict(
-                    type='object',
-                    additionalProperties=False,
-                    required=[f'{object_type}_uuid'],
-                    properties={
-                        f'{object_type}_uuid': dict(
-                            type='string',
-                            format='uuid'
-                        )
-                    }
-                ),
-                outputs=dict(
-                    type='object',
-                    additionalProperties=True,
-                    required=[object_type, 'exists'],
-                    properties={
-                        object_type: object_schema,
-                        "exists": dict(
-                            type='boolean'
-                        )
-                    }
-                ),
-            )
-        )
-    )
+TRANSFORMS_SCHEMA =dict(
+    type= "array",
+    items= {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["operator", "arguments"],
+        "properties": {
+            "operator": {
+                "type":  "string"
+            },
+            "arguments": {
+                "type": "object"
+            }
+        }
+    }
+)
 
-def generate_create_schema(object_type, object_schema):
-    return dict(
-        name=f'Create {object_type}',
-        description=f'Create a single {object_type}',
-        is_trigger=False,
-        schema=dict(
-            type='object',
-            additionalProperties=False,
-            required=['inputs'],
-            properties=dict(
-                inputs=object_schema,
-                outputs=dict(
-                    type='object',
-                    additionalProperties=True,
-                    required=[object_type, 'created'],
-                    properties={
-                        object_type: object_schema,
-                        "created": dict(
-                            type='boolean'
-                        )
-                    }
-                ),
-            )
-        )
-    )
-
-
-def generate_update_schema(object_type, object_schema, update_schema):
-    return dict(
-        name=f'Update {object_type}',
-        description=f'Update a single {object_type}',
-        is_trigger=False,
-        schema=dict(
-            type='object',
-            additionalProperties=False,
-            required=['inputs'],
-            properties=dict(
-                inputs=dict(
-                    type='object',
-                    additionalProperties=False,
-                    required= [f'{object_type}_uuid', 'attributes'],
-                    properties= {
-                        f'{object_type}_uuid': dict(
-                            type='string',
-                            format='uuid'
-                        ),
-                        'attributes': update_schema
-                }
-                ),
-                outputs=dict(
-                    type='object',
-                    additionalProperties=True,
-                    required=[object_type, 'updated'],
-                    properties={
-                        object_type: object_schema,
-                        "updated": dict(
-                            type='boolean'
-                        )
-                    }
-                ),
-            )
-        )
-    )
-
-
-def generate_search_schema(plural_object_type, object_schema, search_schema):
-    return dict(
-        name=f'Search {plural_object_type}',
-        description=f'Search for {plural_object_type}',
-        is_trigger=False,
-        schema=dict(
-            type='object',
-            additionalProperties=False,
-            required=['inputs'],
-            properties=dict(
-                inputs=search_schema,
-                outputs=dict(
-                    type='object',
-                    additionalProperties=True,
-                    required=[plural_object_type],
-                    properties={
-                        plural_object_type: dict(
-                            type='array',
-                            items=object_schema,
-                        )
-                    }
-                ),
-            )
-        )
-    )
 def get_object(integration, account_uuid, object_type, object_uuid, token, path_override=None, **kwargs):
     from urllib.parse import urljoin
     import requests
@@ -190,3 +81,5 @@ def search_objects(integration, search_parameters, plural_object_type, token, li
             search = False
         page+=1
     return {plural_object_type: objects}
+def trigger_object(inputs):
+    return inputs['record']

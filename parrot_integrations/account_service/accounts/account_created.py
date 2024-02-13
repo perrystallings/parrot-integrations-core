@@ -1,56 +1,9 @@
+from parrot_integrations.account_service.accounts import OBJECT_SCHEMA
+from parrot_integrations.core import generate_trigger_schema, trigger_object
+
 def get_schema():
-    return dict(
-        name='Account Created',
-        description='Create account based on provided data',
-        is_trigger=True,
-        schema=dict(
-            type='object',
-            additionalProperties=False,
-            description='Insert Row into BigQuery Table',
-            required=['inputs', 'outputs'],
-            properties=dict(
-                inputs=dict(
-                    type='object',
-                    additionalProperties=False,
-                    required=["is_inherited"],
-                    properties=dict(
-                        is_inherited=dict(
-                            type='boolean',
-                            default=False
-                        ),
-                    )
-                ),
-                outputs=dict(
-                    type='object',
-                    required=[
-                        'account_uuid'
-                        'parent_uuids',
-                        'name',
-                        'created_ts'
-                    ],
-                    properties=dict(
-                        account_uuid=dict(
-                            type='string',
-                        ),
-                        parent_uuids=dict(
-                            type='array',
-                            items=dict(
-                                type='string',
-                                format='uuid'
-                            )
-                        ),
-                        name=dict(
-                            type='string'
-                        ),
-                        created_ts=dict(
-                            type='integer',
-                        )
-                    )
-                ),
-            )
-        )
-    )
+    return generate_trigger_schema(object_type='account', object_schema=OBJECT_SCHEMA, status='created')
 
 
-def process(workflow_uuid, node_uuid, processed_ts, inputs, integration, **kwargs):
-    pass
+def process(inputs, **kwargs):
+    return trigger_object(inputs=inputs)

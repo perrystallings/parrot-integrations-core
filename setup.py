@@ -14,7 +14,7 @@ with open('HISTORY.rst') as history_file:
 requirements = [
     'jsonpath-ng',
     'croniter',
-    "jsonschema['format']"
+    "jsonschema"
 ]
 
 test_requirements = [
@@ -43,7 +43,7 @@ setup(
     include_package_data=True,
     keywords='parrot_integrations',
     name='parrot-integrations-core',
-    packages=[f'parrot_integrations.{i}' for i in os.listdir('./parrot_integrations') if os.path.isdir(os.path.join('./parrot_integrations', i))],
+    packages=[i[0].replace('./', '').replace('/', '.') for i in os.walk('./parrot_integrations')],
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/perrystallings/parrot_integrations_core',
