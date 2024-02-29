@@ -1,8 +1,9 @@
 from parrot_integrations.account_service.accounts import OBJECT_SCHEMA
 from parrot_integrations.core import search_objects, generate_search_schema
 
+
 def get_schema():
-    search_schema=dict(
+    search_schema = dict(
         account_type_uuids=dict(
             type='array',
             items=dict(
@@ -28,21 +29,23 @@ def get_schema():
             )
         ),
         is_active=dict(
-            type=['null','boolean'],
+            type=['null', 'boolean'],
             default=True
         ),
         is_visible=dict(
-            type=['null','boolean'],
+            type=['null', 'boolean'],
             default=True
         )
     )
-    return generate_search_schema(plural_object_type='accounts', object_schema=OBJECT_SCHEMA, search_schema=search_schema)
+    return generate_search_schema(plural_object_type='accounts', object_schema=OBJECT_SCHEMA,
+                                  search_schema=search_schema)
+
 
 def process(inputs, integration, token, account_uuid, **kwargs):
     account_uuids = inputs.get('account_uuids')
     account_type_uuids = inputs.get('account_type_uuids')
     parent_account_uuids = inputs.get('parent_account_uuids')
-    search_parameters=dict(
+    search_parameters = dict(
         account_uuids=account_uuids,
         account_type_uuids=account_type_uuids,
         parent_account_uuids=parent_account_uuids

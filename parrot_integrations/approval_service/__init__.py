@@ -2,6 +2,7 @@ from .comments import *
 from .submission_types import *
 from .submissions import *
 
+
 def get_integration_schema():
     return dict(
         type='object',

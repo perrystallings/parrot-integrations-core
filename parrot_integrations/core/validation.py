@@ -1,7 +1,9 @@
-from parrot_integrations.core.common import load_integration_module
 import inspect
 from copy import deepcopy
 from importlib import reload
+
+from parrot_integrations.core.common import load_integration_module
+
 
 def validate_integration(integration_key):
     integration = load_integration_module(integration_key=integration_key)
@@ -17,8 +19,9 @@ def validate_integration(integration_key):
 
 
 def validate_operation(integration_key, operation_key):
+    from parrot_integrations.core.schemas import get_operation_schema
     operation = load_integration_module(integration_key=integration_key, operation_key=operation_key)
-    object_schema=None
+    object_schema = None
     if hasattr(operation, 'OBJECT_SCHEMA'):
         object_schema = deepcopy(operation.OBJECT_SCHEMA)
     assert hasattr(operation, 'get_schema')
@@ -27,24 +30,26 @@ def validate_operation(integration_key, operation_key):
     process_signature = inspect.signature(operation.process)
     assert len(schema_signature.parameters.keys()) == 0
     schema = operation.get_schema()
-    validate_input_schema(inputs=schema['schema']['properties']['inputs'])
+    operation_schema = get_operation_schema(integration_key=integration_key, operation_key=operation_key)
+    validate_input_schema(inputs=operation_schema['schema']['properties']['inputs'])
     if hasattr(operation, 'OBJECT_SCHEMA'):
         reload(operation)
         assert operation.OBJECT_SCHEMA == object_schema
-    assert schema['schema']['type'] == 'object'
-    assert schema['schema']['properties']['outputs']
-    assert not schema['schema']['additionalProperties']
+    assert operation_schema['schema']['type'] == 'object'
+    assert operation_schema['schema']['properties']['outputs']
+    assert not operation_schema['schema']['additionalProperties']
     kwarg_parameter = any(i.kind.name == 'VAR_KEYWORD' for i in process_signature.parameters.values())
     for keyword in ['workflow_uuid', 'node_uuid', 'processed_ts', 'inputs', 'integration']:
         assert keyword in process_signature.parameters.keys() or kwarg_parameter
+
 
 def validate_input_schema(inputs):
     print(inputs)
     for i in inputs.get('required', []):
         assert i in inputs['properties'].keys()
-    if inputs.get('type')=='object':
-        for k,v in inputs.get('properties', dict()).items():
-            print(k,v)
+    if inputs.get('type') == 'object':
+        for k, v in inputs.get('properties', dict()).items():
+            print(k, v)
             if v.get('type') == 'object':
                 validate_input_schema(inputs=v)
             elif v.get('type') == 'array':
@@ -58,6 +63,6 @@ def validate_input_schema(inputs):
     elif inputs.get('type'):
         assert isinstance(inputs['type'], str) or isinstance(inputs['type'], list)
     else:
-        assert len(inputs['oneOf'])>= 1
+        assert len(inputs['oneOf']) >= 1
         for i in inputs['oneOf']:
             validate_input_schema(inputs=i)

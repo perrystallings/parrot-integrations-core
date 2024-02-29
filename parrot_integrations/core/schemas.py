@@ -1,13 +1,15 @@
+import functools
 from copy import deepcopy
-TRANSFORMS_SCHEMA =dict(
-    type= "array",
-    items= {
+
+TRANSFORMS_SCHEMA = dict(
+    type="array",
+    items={
         "type": "object",
         "additionalProperties": False,
         "required": ["operator", "arguments"],
         "properties": {
             "operator": {
-                "type":  "string"
+                "type": "string"
             },
             "arguments": {
                 "type": "object"
@@ -16,6 +18,15 @@ TRANSFORMS_SCHEMA =dict(
     }
 )
 
+
+@functools.cache
+def get_operation_schema(integration_key, operation_key):
+    from parrot_integrations.core.common import load_integration_module
+    operation = load_integration_module(integration_key, operation_key)
+    schema = operation.get_schema()
+    schema['schema']['properties']['inputs'] = format_input_schema(
+        input_schema=schema['schema']['properties']['inputs'])
+    return schema
 
 
 def generate_get_schema(object_type, object_schema):
@@ -28,18 +39,16 @@ def generate_get_schema(object_type, object_schema):
             additionalProperties=False,
             required=['inputs'],
             properties=dict(
-                inputs=format_input_schema(
-                    input_schema=dict(
-                        type='object',
-                        additionalProperties=False,
-                        required=[f'{object_type}_uuid'],
-                        properties={
-                            f'{object_type}_uuid': dict(
-                                type='string',
-                                format='uuid'
-                            )
-                        }
-                    )
+                inputs=dict(
+                    type='object',
+                    additionalProperties=False,
+                    required=[f'{object_type}_uuid'],
+                    properties={
+                        f'{object_type}_uuid': dict(
+                            type='string',
+                            format='uuid'
+                        )
+                    }
                 ),
                 outputs=dict(
                     type='object',
@@ -56,6 +65,7 @@ def generate_get_schema(object_type, object_schema):
         )
     )
 
+
 def generate_create_schema(object_type, object_schema):
     object_schema = deepcopy(object_schema)
     return dict(
@@ -67,7 +77,7 @@ def generate_create_schema(object_type, object_schema):
             additionalProperties=False,
             required=['inputs'],
             properties=dict(
-                inputs=format_input_schema(input_schema=object_schema),
+                inputs=object_schema,
                 outputs=dict(
                     type='object',
                     additionalProperties=True,
@@ -100,19 +110,17 @@ def generate_update_schema(object_type, object_schema, update_fields):
             additionalProperties=False,
             required=['inputs'],
             properties=dict(
-                inputs=format_input_schema(
-                    input_schema=dict(
-                        type='object',
-                        additionalProperties=False,
-                        required= [f'{object_type}_uuid', 'attributes'],
-                        properties= {
-                            f'{object_type}_uuid': dict(
-                                type='string',
-                                format='uuid'
-                            ),
-                            'attributes': update_schema
-                        }
-                    )
+                inputs=dict(
+                    type='object',
+                    additionalProperties=False,
+                    required=[f'{object_type}_uuid', 'attributes'],
+                    properties={
+                        f'{object_type}_uuid': dict(
+                            type='string',
+                            format='uuid'
+                        ),
+                        'attributes': update_schema
+                    }
                 ),
                 outputs=dict(
                     type='object',
@@ -140,12 +148,10 @@ def generate_search_schema(plural_object_type, object_schema, search_schema):
             additionalProperties=False,
             required=['inputs'],
             properties=dict(
-                inputs=format_input_schema(
-                    input_schema=dict(
-                        type='object',
-                        additionalProperties=False,
-                        properties=search_schema
-                    )
+                inputs=dict(
+                    type='object',
+                    additionalProperties=False,
+                    properties=search_schema
                 ),
                 outputs=dict(
                     type='object',
@@ -161,6 +167,8 @@ def generate_search_schema(plural_object_type, object_schema, search_schema):
             )
         )
     )
+
+
 def generate_trigger_schema(object_type, object_schema, status):
     return dict(
         name=f'{object_type} {status} Trigger',
@@ -205,7 +213,6 @@ def generate_trigger_schema(object_type, object_schema, status):
     )
 
 
-
 def format_input_schema(input_schema):
     new_schema = input_schema
     if input_schema['type'] == 'object':
@@ -216,7 +223,7 @@ def format_input_schema(input_schema):
             )
         else:
             new_properties = dict()
-            for k,v in input_schema['properties'].items():
+            for k, v in input_schema['properties'].items():
                 if v.get('readOnly'):
                     continue
                 if v.get('type') == 'object':

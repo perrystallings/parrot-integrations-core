@@ -1,6 +1,7 @@
 from parrot_integrations.context_service.context import OBJECT_SCHEMA
 from parrot_integrations.core.schemas import format_input_schema
 
+
 def get_schema():
     return dict(
         name='Upload Context File',
@@ -32,6 +33,7 @@ def get_schema():
             )
         )
     )
+
 
 def process(integration, inputs, account_uuid, **kwargs):
     return inputs

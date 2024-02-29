@@ -1,15 +1,16 @@
 from urllib.parse import urljoin
+
 import requests
 
-TRANSFORMS_SCHEMA =dict(
-    type= "array",
-    items= {
+TRANSFORMS_SCHEMA = dict(
+    type="array",
+    items={
         "type": "object",
         "additionalProperties": False,
         "required": ["operator", "arguments"],
         "properties": {
             "operator": {
-                "type":  "string"
+                "type": "string"
             },
             "arguments": {
                 "type": "object"
@@ -17,6 +18,7 @@ TRANSFORMS_SCHEMA =dict(
         }
     }
 )
+
 
 def get_object(integration, account_uuid, object_type, object_uuid, token, path_override=None, **kwargs):
     from urllib.parse import urljoin
@@ -32,6 +34,7 @@ def get_object(integration, account_uuid, object_type, object_uuid, token, path_
         results[object_type] = resp.json()['response']
     return results
 
+
 def create_object(integration, account_uuid, object_type, data, token, path_override=None, **kwargs):
     from urllib.parse import urljoin
     import requests
@@ -46,6 +49,7 @@ def create_object(integration, account_uuid, object_type, data, token, path_over
         results[object_type] = resp.json()['response']
     return results
 
+
 def update_object(integration, account_uuid, object_type, object_uuid, data, token, path_override=None, **kwargs):
     from urllib.parse import urljoin
     import requests
@@ -59,6 +63,8 @@ def update_object(integration, account_uuid, object_type, object_uuid, data, tok
         results['updated'] = True
         results[object_type] = resp.json()['response']
     return results
+
+
 def search_objects(integration, search_parameters, plural_object_type, token, limit=100, **kwargs):
     objects = []
     search = True
@@ -79,7 +85,9 @@ def search_objects(integration, search_parameters, plural_object_type, token, li
         objects.extend(resp.json()['response'])
         if limit is None or len(resp.json()['response']) < limit:
             search = False
-        page+=1
+        page += 1
     return {plural_object_type: objects}
+
+
 def trigger_object(inputs):
     return inputs['record']

@@ -1,4 +1,3 @@
-from parrot_integrations.context_service.context import OBJECT_SCHEMA
 def get_schema():
     return dict(
         name='',

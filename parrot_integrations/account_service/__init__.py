@@ -1,5 +1,7 @@
-from .accounts import *
 from .account_types import *
+from .accounts import *
+
+
 def get_integration_schema():
     return dict(
         type='object',

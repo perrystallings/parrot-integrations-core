@@ -47,6 +47,3 @@ def evaluate_criteria(criteria, record):
         pass
     finally:
         return result
-
-
-

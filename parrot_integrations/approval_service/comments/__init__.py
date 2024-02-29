@@ -1,4 +1,4 @@
-OBJECT_SCHEMA =dict(
+OBJECT_SCHEMA = dict(
     type='object',
     additionalProperties=False,
     properties=dict()

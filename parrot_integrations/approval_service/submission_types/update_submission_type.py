@@ -1,4 +1,3 @@
-from parrot_integrations.approval_service.submission_types import OBJECT_SCHEMA
 def get_schema():
     return dict(
         name='',

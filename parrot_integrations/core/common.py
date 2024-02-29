@@ -1,6 +1,3 @@
-from urllib.parse import urljoin
-import requests
-
 def load_integration_module(integration_key: str, operation_key: str = None):
     from importlib import import_module
 
