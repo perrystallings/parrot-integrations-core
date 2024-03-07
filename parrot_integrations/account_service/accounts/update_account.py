@@ -1,31 +1,15 @@
+from parrot_integrations.core import generate_update_schema, update_object
+from parrot_integrations.account_service.accounts import OBJECT_SCHEMA
+
+
 def get_schema():
-    return dict(
-        name='',
-        description='',
-        is_trigger=False,
-        schema=dict(
-            type='object',
-            additionalProperties=False,
-            description='',
-            required=['inputs', 'outputs'],
-            properties=dict(
-                inputs=dict(
-                    type='object',
-                    additionalProperties=False,
-                    required=[],
-                    properties=dict(
-                    )
-                ),
-                outputs=dict(
-                    type='object',
-                    additionalProperties=True,
-                    required=[],
-                    properties=dict()
-                ),
-            )
-        )
-    )
+    return generate_update_schema(object_type='account', object_schema=OBJECT_SCHEMA, update_fields=[
+        'name',
+        'extra_attributes',
+        'status_id'
+    ])
 
 
-def process(workflow_uuid, node_uuid, processed_ts, inputs, integration, **kwargs):
-    pass
+def process(inputs, integration, token, account_uuid, **kwargs):
+    return update_object(integration=integration, account_uuid=account_uuid, object_type='account',
+                         object_uuid=inputs['account_uuid'], data=inputs['attributes'], token=token)

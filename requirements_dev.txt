@@ -3,4 +3,5 @@ pytest-cov>=2.8.1
 jsonpath-ng
 responses
 croniter
-jsonschema['format']
+jsonschema[format]
+jsf

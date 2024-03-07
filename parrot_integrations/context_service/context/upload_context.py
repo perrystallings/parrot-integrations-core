@@ -22,9 +22,12 @@ def get_schema():
                                 type='string',
                                 format='uuid'
                             ),
-                            file=dict(
-                                type='string',
-                                format='uri'
+                            files=dict(
+                                type='array',
+                                items=dict(
+                                    type='string',
+                                    format='binary'
+                                )
                             )
                         )
                     )

@@ -48,5 +48,6 @@ def process(inputs, integration, token, account_uuid, **kwargs):
         search_parameters=inputs,
         token=token,
         account_uuid=account_uuid,
-        limit=None
+        limit=None,
+        path_override='context/search'
     )

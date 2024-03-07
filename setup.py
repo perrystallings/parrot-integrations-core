@@ -19,7 +19,8 @@ requirements = [
 
 test_requirements = [
     'pytest>=3',
-    'responses'
+    'responses',
+    "jsf"
 ]
 
 setup(

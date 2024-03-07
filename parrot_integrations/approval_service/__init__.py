@@ -13,7 +13,16 @@ def get_integration_schema():
             extra_attributes=dict(
                 type='object',
                 additionalProperties=False,
-                properties=dict()
+                required=[
+                    'base_url'
+                ],
+                properties=dict(
+                    base_url=dict(
+                        type='string',
+                        description='URL of the Account Service',
+                        default='https://api.example.com/approval/v1/'
+                    )
+                )
             ),
             credentials=dict(
                 type='object',

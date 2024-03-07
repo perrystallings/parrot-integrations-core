@@ -8,4 +8,4 @@ def get_schema():
 
 def process(inputs, integration, token, account_uuid, **kwargs):
     return get_object(integration=integration, object_type='context', object_uuid=inputs['context_uuid'],
-                      path_override='/context/{inputs["context_uuid"]', token=token, account_uuid=account_uuid)
+                      path_override=f'context/{inputs["context_uuid"]}', token=token, account_uuid=account_uuid)

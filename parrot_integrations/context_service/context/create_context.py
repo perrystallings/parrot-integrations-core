@@ -7,5 +7,5 @@ def get_schema():
 
 
 def process(inputs, integration, token, account_uuid, **kwargs):
-    return create_object(integration=integration, object_type='context', data=inputs, token=token,
+    return create_object(integration=integration, object_type='context', data=inputs, token=token, path_override='context',
                          account_uuid=account_uuid)

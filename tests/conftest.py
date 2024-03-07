@@ -27,3 +27,8 @@ def traverse(folder, target_filename, other_filenames=tuple()):
 def root_directory():
     import os
     return ROOT_DIRECTORY
+
+@pytest.fixture()
+def account_uuid():
+    import uuid
+    return uuid.uuid4()

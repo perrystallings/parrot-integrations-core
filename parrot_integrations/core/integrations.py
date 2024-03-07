@@ -27,8 +27,8 @@ def get_object(integration, account_uuid, object_type, object_uuid, token, path_
         object_type: None,
         "exists": False
     }
-    path = path_override if path_override is not None else f'/{object_type}s/{object_uuid}'
-    resp = requests.get(urljoin(integration['base_url'], path), headers=token)
+    path = path_override if path_override is not None else f'{object_type}s/{object_uuid}'
+    resp = requests.get(urljoin(integration['extra_attributes']['base_url'], path), headers=token)
     if resp.status_code == 200:
         results['exists'] = True
         results[object_type] = resp.json()['response']
@@ -42,8 +42,8 @@ def create_object(integration, account_uuid, object_type, data, token, path_over
         object_type: None,
         "created": False
     }
-    path = path_override if path_override is not None else f'/{object_type}s/'
-    resp = requests.post(urljoin(integration['base_url'], path), json=data, headers=token)
+    path = path_override if path_override is not None else f'{object_type}s'
+    resp = requests.post(urljoin(integration['extra_attributes']['base_url'], path), json=data, headers=token)
     if resp.status_code == 200:
         results['created'] = True
         results[object_type] = resp.json()['response']
@@ -57,8 +57,8 @@ def update_object(integration, account_uuid, object_type, object_uuid, data, tok
         object_type: None,
         "updated": False
     }
-    path = path_override if path_override is not None else f'/{object_type}s/{object_uuid}'
-    resp = requests.patch(urljoin(integration['base_url'], path), json=data, headers=token)
+    path = path_override if path_override is not None else f'{object_type}s/{object_uuid}'
+    resp = requests.patch(urljoin(integration['extra_attributes']['base_url'], path), json=data, headers=token)
     if resp.status_code == 200:
         results['updated'] = True
         results[object_type] = resp.json()['response']
@@ -78,7 +78,7 @@ def search_objects(integration, search_parameters, plural_object_type, token, li
         if limit is not None:
             payload['page'] = page
         resp = requests.post(
-            url=urljoin(integration['extra_attributes']['base_url'], f'/{plural_object_type}/search'),
+            url=urljoin(integration['extra_attributes']['base_url'], f'{plural_object_type}/search'),
             json=payload,
             headers=token
         )
