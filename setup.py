@@ -11,17 +11,12 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [
-    'jsonpath-ng',
-    'croniter',
-    "jsonschema"
-]
+with open('requirements.txt') as requirements_file:
+    requirements = requirements_file.read()
 
-test_requirements = [
-    'pytest>=3',
-    'responses',
-    "jsf"
-]
+with open('requirements_dev.txt') as test_requirements_file:
+    test_requirements = test_requirements_file.read()
+
 
 setup(
     author="Perry Stallings",
