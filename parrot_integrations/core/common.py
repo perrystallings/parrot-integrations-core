@@ -7,11 +7,15 @@ def load_integration_module(integration_key: str, operation_key: str = None):
     return module
 
 
-def format_data(record, schema):
+def format_data(record, inputs, schema):
     data = dict()
-    for k, v in schema.items():
-        if isinstance(v, list):
-            value = [format_data(record=record, schema=i) if isinstance(i, dict) else i for i in v]
+    for k, v in inputs.items():
+        if isinstance(v, list) and schema['properties'].get(k, dict()).get('type') == 'object':
+            value = dict()
+            for i in v:
+                value[i['key']] = extract_value(field=i, record=record)
+        elif isinstance(v, list):
+            value = [format_data(record=record, inputs=i, schema=schema) if isinstance(i, dict) else i for i in v]
         elif isinstance(v, dict):
             if all(i in ['value', 'path', 'default', 'transforms'] for i in v.keys()):
                 value = extract_value(field=v, record=record)
